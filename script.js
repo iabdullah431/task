@@ -115,6 +115,16 @@ function updateResults(bmi, lowerWeight, upperWeight) {
     range.innerHTML = `${lowerWeight} - ${upperWeight}`;
 }
 
+// Allow only numbers in input fields
+function allowOnlyNumbers(input) {
+    input.addEventListener("input", () => {
+        input.value = input.value.replace(/[^0-9.]/g, ""); // Allow numbers and dots only
+    });
+}
+
+// Apply numeric restriction to all input fields
+[cm, kg, ft, inch, st, lbs].forEach(input => allowOnlyNumbers(input));
+
 // Event listeners for Metric inputs
 cm.addEventListener("input", () => {
     if (cm.value && kg.value) {
