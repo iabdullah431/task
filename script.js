@@ -115,14 +115,28 @@ function updateResults(bmi, lowerWeight, upperWeight) {
     range.innerHTML = `${lowerWeight} - ${upperWeight}`;
 }
 
-// Allow only numbers in input fields
+// Allow only numbers in input fields (including mobile keyboards)
 function allowOnlyNumbers(input) {
     input.addEventListener("input", () => {
-        input.value = input.value.replace(/[^0-9.]/g, ""); // Allow numbers and dots only
+        input.value = input.value.replace(/[^0-9.]/g, "");
+    });
+
+    // Handle keypress to prevent invalid character input
+    input.addEventListener("keypress", (event) => {
+        const char = String.fromCharCode(event.which);
+        if (!/[\d.]/.test(char)) { 
+            event.preventDefault();
+        }
+    });
+
+    input.addEventListener("paste", (event) => {
+        const pasteData = (event.clipboardData || window.clipboardData).getData("text");
+        if (!/^[0-9.]*$/.test(pasteData)) {
+            event.preventDefault();
+        }
     });
 }
 
-// Apply numeric restriction to all input fields
 [cm, kg, ft, inch, st, lbs].forEach(input => allowOnlyNumbers(input));
 
 // Event listeners for Metric inputs
