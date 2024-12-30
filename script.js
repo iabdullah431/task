@@ -105,12 +105,14 @@ function calculateImperialBMI() {
 
 // Update results display
 function updateResults(bmi, lowerWeight, upperWeight) {
-    if (bmi > 24.9) {
-        healthy.innerHTML = "overweight";
-    } else if (bmi < 18.5) {
-        healthy.innerHTML = "underweight";
-    } else {
-        healthy.innerHTML = "at a healthy weight";
+    if (bmi < 18.5) {
+        healthy.innerHTML = "Underweight";
+    } else if (bmi >= 18.5 && bmi <= 24.9) {
+        healthy.innerHTML = "Healthy weight";
+    } else if (bmi >= 25 && bmi <= 29.9) {
+        healthy.innerHTML = "Overweight";
+    } else if (bmi >= 30) {
+        healthy.innerHTML = "Obese";
     }
     range.innerHTML = `${lowerWeight} - ${upperWeight}`;
 }
